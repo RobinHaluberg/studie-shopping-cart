@@ -103,9 +103,11 @@ def get_prices_from_cart(products: list[dict[str, int | str]]) -> list[int]:
 
 def calculate_product_sum_with_discount_util(products: list[dict[str, int | str]]) -> int:
     prices = get_prices_from_cart(products)
-
     # TODO: Implementieren eines speziellen Rabattes, der die Summe des neuen Warenkorbs berechnet
     total_price = 0
-    for price in prices:
-        total_price += price
-    return total_price
+    for i in range(len(prices)):
+        for j in range(i + 1, len(prices)):
+            if prices[i] >= prices[j]:
+                total_price += (prices[i] - prices[j])
+                break
+    return total_price + prices[len(prices) - 1]
